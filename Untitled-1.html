@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALPJ asbl</title>
+    <style>
+        /* Basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0 20px;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffdb4d;
+        }
+        section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .contact-button {
+            background-color: #ffdb4d;
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-bottom: 10px;
+        }
+        .contact-button:hover {
+            background-color: #f2c200;
+        }
+        .call-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-bottom: 10px;
+        }
+        .call-button:hover {
+            background-color: #0056b3;
+        }
+        .download-button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .download-button:hover {
+            background-color: #218838;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur la page officielle ALPJ asbl</h1>
+    </header>
+    <nav>
+        <a href="#home">Accueil</a>
+        <a href="#about">A propos de nous</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <section id="home">
+        <h2>Accueil</h2>
+        <p>Bienvenue sur le site officiel de l'ALPJ asbl.</p>
+    </section>
+    <section id="about">
+        <h2>A propos de Nous</h2>
+        <p>L'ALPJ est une association de lutte contre la pauvreté de la jeunesse. L’ALPJ asbl a pour objectif de promouvoir le développement général de la jeunesse ainsi que d’autres couches sur toute l’étendue de la province du Sud-Kivu, mais s’étend progressivement si les circonstances en donnent l’opportunité. L’ALPJ asbl est une association non confessionnelle, sans discrimination d’âge ni de sexe et apolitique.</p>
+    </section>
+    <section id="services">
+        <h2>Services</h2>
+        <p>Nous œuvrons dans des domaines variés.</p>
+        <div class="submission-box">
+            <form action="send_email.php" method="post" enctype="multipart/form-data">
+                <label for="organization-name" class="hidden-label">Saisissez le nom de votre organisation :</label><br>
+                <input type="text" id="organization-name" name="organization-name" placeholder="Saisissez le nom de votre organisation" required><br><br>
+    
+                <label for="project-description" class="hidden-label">Rédigez votre projet :</label><br>
+                <textarea id="project-description" name="project-description" rows="4" cols="50" placeholder="Rédigez votre projet" required></textarea><br><br>
+    
+                <label for="project-file" class="hidden-label">Copiez ou téléchargez votre projet ici :</label><br>
+                <input type="file" id="project-file" name="project-file" accept=".pdf, .doc, .docx" required><br><br>
+    
+                <input type="submit" value="Soumettre mon projet à l'ALPJ" class="download-button">
+            </form>
+        </div>
+        <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $to = "alpjasbl@gmail.com";
+    $subject = "Nouveau projet soumis à l'ALPJ";
+    $organizationName = $_POST["organization-name"];
+    $projectDescription = $_POST["project-description"];
+    
+    // Construction du message
+    $message = "Nom de l'organisation : " . $organizationName . "\n\n";
+    $message .= "Projet :\n" . $projectDescription . "\n";
+    
+    // Envoi de l'e-mail
+    if (mail($to, $subject, $message)) {
+        echo "Votre projet a été soumis avec succès à l'ALPJ.";
+    } else {
+        echo "Une erreur est survenue lors de la soumission de votre projet. Veuillez réessayer.";
+    }
+} else {
+    echo "Méthode de requête invalide.";
+}
+?>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p><a href="mailto:alpjasbl@gmail.com" class="contact-button">Nous écrire immédiatement un message</a></p>
+        <p><a href="tel:+243893323333" class="call-button">Appeler immédiatement le +243893323333</a></p>
+    </section>
+    <footer>
+        <p>&copy; 2024 ALPJ asbl. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
